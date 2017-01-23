@@ -9,6 +9,9 @@ import (
 	"io"
 	"log"
 	"time"
+	"strings"
+	"path/filepath"
+	"mime"
 )
 
 // 获取大小的借口
@@ -104,7 +107,11 @@ func main() {
 		}
 
 		filename := header.Filename
-		fmt.Println(header.Filename)
+		fmt.Println(header.Filename, "file name")
+
+		// 文件后缀
+		ext := strings.ToLower(filepath.Ext(filename))
+		log.Println(ext, "ext")
 
 		out, err := os.Create("./tmp/" + filename)
 		if err != nil {
@@ -121,8 +128,17 @@ func main() {
 			return
 		}
 
+		//fileinfo, err := out.Stat()
+		//if err != nil {
+		//	log.Println(err, "fileinfo")
+		//}
+
+		mimeType := mime.TypeByExtension(ext)
+
 		log.Println("file size 1", size)
 		log.Println("file size 2", fileSize)
+		log.Println("file mime", mimeType)
+		//log.Println("file mime", fileinfo)
 	})
 
 	// Listen and Server in 0.0.0.0:8080
