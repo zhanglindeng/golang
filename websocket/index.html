@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>chat</title>
+</head>
+
+<body>
+    <div>
+        <input type="text" id="msg" size="64">
+        <button id="send">send</button>
+    </div>
+    <br><br>
+    <div id="logs">
+
+    </div>
+    <script>
+        window.onload = function() {
+            var msg = document.getElementById('msg');
+            var send = document.getElementById('send');
+            var logs = document.getElementById('logs');
+            var app_id = '{{.App}}';
+            var user_id = '{{.User}}';
+            var message_token = '{{.MessageToken}}';
+            var conn;
+
+            function appendLog(item) {
+                var doScroll = logs.scrollTop > logs.scrollHeight - logs.clientHeight - 1;
+                logs.appendChild(item);
+                if (doScroll) {
+                    logs.scrollTop = logs.scrollHeight - logs.clientHeight;
+                }
+            }
+
+            function sendMsg(o) {
+                console.log(o.value);
+                if (!conn) {
+                    console.log('conn');
+                    return false;
+                }
+                if (!o.value) {
+                    console.log('value');
+                    return false;
+                }
+                var data = {
+                    channel_id:'ch1',
+                    content_type:1,
+                    content: o.value
+                };
+                conn.send(JSON.stringify(data));
+                o.value = "";
+                console.log('o.value');
+                return false;
+            }
+
+            msg.addEventListener('keyup', function(e) {
+                // enter
+                if (e.keyCode == 13) {
+                    sendMsg(this);
+                }
+            });
+
+            send.addEventListener('click', function() {
+                sendMsg(msg);
+            });
+
+            conn = new WebSocket("ws://" + document.location.host + "/ws?app_id=" + app_id + "&user_id=" + user_id + "&message_token=" + message_token);
+            conn.onclose = function(evt) {
+                var item = document.createElement("div");
+                item.innerHTML = "<b>Connection closed.</b>";
+                appendLog(item);
+            };
+            conn.onmessage = function(evt) {
+                console.log(evt.data);
+                var obj = JSON.parse(evt.data);
+                console.log(obj);
+                // channel_id,content_type,content,user_id
+            };
+        };
+    </script>
+</body>
+
+</html>
