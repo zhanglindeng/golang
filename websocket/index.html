@@ -46,8 +46,10 @@
                     return false;
                 }
                 var data = {
-                    channel_id:'ch1',
-                    content_type:1,
+                    app_id: app_id,
+                    user_id: user_id,
+                    channel_id: 'ch1',
+                    message_type: 1,
                     content: o.value
                 };
                 conn.send(JSON.stringify(data));
@@ -75,8 +77,15 @@
             };
             conn.onmessage = function(evt) {
                 console.log(evt.data);
-                var obj = JSON.parse(evt.data);
-                console.log(obj);
+                try {
+                    var obj = JSON.parse(evt.data);
+                    console.log(obj);
+                    var item = document.createElement('div');
+                    item.innerText = obj.content;
+                    appendLog(item);
+                } catch (e) {
+                    console.log('error', e)
+                }
                 // channel_id,content_type,content,user_id
             };
         };
