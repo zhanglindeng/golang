@@ -4,6 +4,30 @@ import (
 	"testing"
 )
 
+func BenchmarkStringPasswordHash(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		StringPasswordHash("123abc")
+	}
+}
+
+func BenchmarkStringSha1(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		StringSha1("123abc")
+	}
+}
+
+func BenchmarkStringMd5(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		StringMd5("123abc")
+	}
+}
+
+func BenchmarkStringRandomStr(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		StringRandomStr(32)
+	}
+}
+
 func TestStringRandomStr(t *testing.T) {
 	n := 6
 	s := StringRandomStr(n, []byte(`abcdefghijklmnopqrstuvwxyz`)...)
