@@ -17,3 +17,4 @@ go language code note
 ## test
 - 测试单个文件，要带上源文件 `go test -v abc_test.go abc.go`
 - 测试单个方法 `go test -v -test.run TestAbc`
+- [参考网页](http://blog.csdn.net/shenlanzifa/article/details/51451814)
