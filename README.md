@@ -13,3 +13,7 @@ go language code note
 ### [post json](http://stackoverflow.com/questions/24455147/how-do-i-send-a-json-string-in-a-post-request-in-go)
 
 ### [echo session](https://github.com/ipfans/echo-session)
+
+## test
+- 测试单个文件，要带上源文件 `go test -v abc_test.go abc.go`
+- 测试单个方法 `go test -v -test.run TestAbc`
