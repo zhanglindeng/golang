@@ -6,6 +6,18 @@ import (
 	"time"
 )
 
+func TestDateStrToTime(t *testing.T) {
+	date := "2017-07-04 12:23:12"
+	t1 := DateStrToTime(date)
+	t.Log(t1.Unix())
+}
+
+func TestDateFormat(t *testing.T) {
+	format := "Y y m n M F d j D l g G h H a A i s"
+	s := DateFormat(format)
+	t.Log("DateFormat", s)
+}
+
 func TestDateDate4(t *testing.T) {
 	s := DateDate("U", 1499075877)
 	t.Log("DateDate", s)
