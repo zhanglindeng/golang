@@ -1,6 +1,7 @@
 package phpgo
 
 import (
+	"crypto/hmac"
 	"crypto/md5"
 	"crypto/rand"
 	"crypto/sha1"
@@ -11,6 +12,28 @@ import (
 
 	"golang.org/x/crypto/bcrypt"
 )
+
+// StringCheckHashHmac reports whether messageMAC is a valid HMAC tag for message
+// func StringCheckHashHmac(message, messageMAC, key []byte) bool {
+// 	mac := hmac.New(sha256.New, key)
+// 	mac.Write(message)
+// 	expectedMAC := mac.Sum(nil)
+// 	return hmac.Equal(messageMAC, expectedMAC)
+// }
+
+// StringHashHmacSha1 hash_hmac sha1
+func StringHashHmacSha1(message, key []byte) string {
+	mac := hmac.New(sha1.New, key)
+	mac.Write(message)
+	return fmt.Sprintf("%x", mac.Sum(nil))
+}
+
+// StringHashHmac hash_hmac sha256
+func StringHashHmac(message, key []byte) string {
+	mac := hmac.New(sha256.New, key)
+	mac.Write(message)
+	return fmt.Sprintf("%x", mac.Sum(nil))
+}
 
 // StringRandomStr generate randmon string by specify chars
 func StringRandomStr(n int, alphabets ...byte) string {
