@@ -4,6 +4,26 @@ import (
 	"testing"
 )
 
+func BenchmarkStringHashHmac(b *testing.B) {
+	message := []byte("123456")
+	key := []byte("abc")
+	for i := 0; i < b.N; i++ {
+		StringHashHmacSha1(message, key)
+	}
+}
+
+func TestStringHashHmacSha1(t *testing.T) {
+	message := []byte("123456")
+	key := []byte("abc")
+	t.Log(StringHashHmacSha1(message, key))
+}
+
+func TestStringHashHmac(t *testing.T) {
+	message := []byte("abc")
+	key := []byte("123456")
+	t.Log(StringHashHmac(message, key))
+}
+
 func BenchmarkStringPasswordHash(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		StringPasswordHash("123abc")
