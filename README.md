@@ -10,6 +10,23 @@ go language code note
 ### [gin-limiter](https://github.com/julianshen/gin-limiter)
 ### [Go 可视化性能分析工具](http://colobu.com/2017/03/02/a-short-survey-of-golang-pprof/)
 
+### iota
+```
+type Level int
+
+const (
+	// 严重程度从低到高
+	LevelDebug     Level = iota
+	LevelInfo
+	LevelNotice
+	LevelWarning
+	LevelError
+	LevelCritical
+	LevelAlert
+	LevelEmergency
+)
+```
+
 ### [post json](http://stackoverflow.com/questions/24455147/how-do-i-send-a-json-string-in-a-post-request-in-go)
 
 ### [echo session](https://github.com/ipfans/echo-session)
